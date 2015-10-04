@@ -1,3 +1,11 @@
+// How to use
+//
+// $ node
+// > var w = require('./wiki');
+// > w.getLinks("Illuminati", w.parseJSON);
+// (do some editing in wiki.js)
+// > var w = w.reload('./wiki');
+
 var request = require('request');
 var $ = require('./tools');
 
@@ -25,9 +33,10 @@ function valer(x){
 	return function (a){return a[x];};
 }
 
+// ex: w.getLinks("Illuminati", w.printJSON);
 function getLinks(title, f){
-	getWiki({titles: title, prop: "links"}, function (bd){
-		f($.map(valer("links"), $.oval(bd.query.pages)[0].links));
+	getWiki({titles: title, prop: "links", pllimit: "400", plnamespace: "0"}, function (bd){
+		f($.map(valer("title"), $.oval(bd.query.pages)[0].links));
 	});
 }
 
@@ -35,6 +44,7 @@ function printJSON(a){
 	return console.log(JSON.stringify(a, null, 2));
 }
 
+// ex: var w = w.reload("./wiki");
 function reload(a){
 	delete require.cache[require.resolve(a)];
 	return require(a);
