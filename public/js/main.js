@@ -2,25 +2,23 @@ var app = angular.module('Illuminatify', []);
 
 app.controller('IlluminatifyController', ["$scope", "$document", "$compile", "$timeout", "IlluminatifyDataService",
     function ($scope, $document, $compile, $timeout, IlluminatifyDataService) {
-        IlluminatifyDataService.getData("Data")
-            .then(function(result) {
-                console.log(result);
-            }, function() {
-                console.log("Error");
-            })
-            
-            $scope.search = function() {
-                console.log(101);
-                console.log($scope.searchText);
-            }
-            
-            $scope.feelingIlluminaughty = function() {
-                console.log(102);
-            }
+        $scope.search = function () {
+            var searchText = $scope.searchText;
+            searchText = searchText.replace(/ /g,'');
+            IlluminatifyDataService.getData(searchText)
+                .then(function (result) {
+                    console.log(result);
+                }, function () {
+                    console.log("Error");
+                })
+        }
+        $scope.feelingIlluminaughty = function () {
+            console.log(102);
+        }
     }]);
-    
+
 app.factory("IlluminatifyDataService", ["$http", "$q", function ($http, $q) {
-	var _data = [];			
+    var _data = [];
 
     var _getData = function (searchTerm) {
         var deferred = $q.defer();
@@ -28,19 +26,16 @@ app.factory("IlluminatifyDataService", ["$http", "$q", function ($http, $q) {
         $http.get("/search/" + searchTerm)
             .then(function (result) {
                 //success
-                console.log(result);
                 angular.copy(result.data, _data);
                 deferred.resolve(_data);
-            },
-            function () {
+            }, function () {
                 // error
                 deferred.reject();
             });
         return deferred.promise;
     }
-	
     return {
-		data: _data,
+        data: _data,
         getData: _getData
     };
 }]);
