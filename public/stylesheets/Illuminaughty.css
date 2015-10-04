@@ -1,0 +1,101 @@
+<!--stylesheet for Illuminaughty--> 
+html { 
+    
+    
+    
+} 
+body { 
+	
+
+
+
+}
+
+#logo { 
+    padding-top: 200px; 
+    text-align: center; 
+    float: center; 
+    
+
+
+
+}
+
+#gif { 
+    
+    float: left;
+    
+} 
+
+#dope { 
+    
+    float: right; 
+}
+#logo img { 
+    height: 95px;
+    width: 269px;
+
+
+
+}
+
+
+#search-bar input { 
+    
+    font-family: "Comic-Sans MS", cursive; 
+    font-size: 16px; 
+	width: 569px;
+	height: 26px;
+	margin-top: 19px;
+	border: 1px solid rgba(1,1,1,1);
+	margin-bottom: 19px; 
+
+
+
+}
+#buttons input { 
+	
+    color: #444;;
+    min-width: 54px;
+    height: 30px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: "Comic Sans MS", cursive;
+    margin: 2px 8px;
+    padding: 0 8px;
+    border-radius: 2px;
+    background-color: #f5f5f5;
+    border: 1px solid rgba(0,0,0,0.1);
+    display: inline-block;
+    text-align: center;
+
+
+
+
+}
+#illuminati { 
+    text-align: center; 
+    margin-left: 500px;
+    padding-top: 100px;
+    display: inline-block;
+    
+} 
+#Illuminati img { 
+    height: 100px;
+    width: 100px;
+    /*display: inline-block;*/ 
+    margin-left: auto;
+    margin-right: auto; 
+    float: center;
+    
+} 
+
+footer p { 
+    
+    /*margin-top: 200px;*/
+    text-align: center;
+    font-family: "Comic Sans MS", cursive;
+    font-size: 42px; 
+    
+    
+} 
