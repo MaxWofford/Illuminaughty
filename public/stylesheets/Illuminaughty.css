@@ -35,7 +35,20 @@ body {
     z-index: 1; 
     
 } 
-
+#cod { 
+    float: right;
+    z-index: 1; 
+    margin-right: 0px; 
+    
+    
+    
+} 
+#cod img { 
+    padding-right: 10px;
+    width: 400px; 
+    height: 500px; 
+    
+} 
 #dank { 
     width: 50%;
     height: 50%; 
@@ -80,7 +93,7 @@ body {
 
 
 }
-#buttons input { 
+#buttons input{ 
 	
     color: #444;;
     min-width: 54px;
@@ -100,6 +113,24 @@ body {
 
 
 }
+
+#buttons button { 
+    color: #444;;
+    min-width: 54px;
+    height: 30px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: "Comic Sans MS", cursive;
+    margin: 2px 8px;
+    padding: 0 8px;
+    border-radius: 2px;
+    background-color: #f5f5f5;
+    border: 1px solid rgba(0,0,0,0.1);
+    display: inline-block;
+    text-align: center;
+    
+    
+} 
 #illuminati { 
     text-align: center; 
     float: center; 
