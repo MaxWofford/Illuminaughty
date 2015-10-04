@@ -2027,6 +2027,8 @@
   // mat and mats in sequence apply section
   
   function cap(x, a){
+    var r = x.exec(a);
+    if (r === null)return r;
     return x.exec(a)[1];
   }
   
