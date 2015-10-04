@@ -14,7 +14,8 @@ def wikidataSearch(name):
 	}).json()['search']
 	if result==[]:
 		print 'WARNING: No match found.'
-	return result
+		return ''
+	return result[0]['title']
 claimsCache = {}
 def wikidataGetClaims(entityId):
 	#print 'Retriving claims for',entityId
@@ -65,6 +66,12 @@ def naturallyDescribeWithClaims(claimsInList):
 		result = result + wikidataGetEntityLabel(propertyId)+' '+\
 						wikidataGetEntityLabel(itemId)+'. '
 	return result
+def convertClaimsFromIdsToLabels(claimsInList):
+	result = []
+	for propertyId,itemId in claimsInList:
+		result += [(wikidataGetEntityLabel(propertyId),
+					wikidataGetEntityLabel(itemId))]
+	return result
 def expandClaimsForLooping(claimsInDict):
 	claimsInList = []
 	for propertyId,itemIds in claimsInDict.items():
@@ -98,7 +105,14 @@ def expandClaimsForLooping(claimsInDict):
 # 	else:
 # 		print possibleSolution
 # 		return True
-knownShortestPathsToTarget = {'Q336':[('END','Q336')]}
+
+try:
+	f = open('dump.txt','r')
+	knownShortestPathsToTarget = json.loads(f.read())
+	f.close()
+except:
+	print '[ERROR]Cannot read dump file; using Q336 ("science") by default.'
+	knownShortestPathsToTarget = {'Q336':[('START','Q336')]}#actually this should be "END" but ...
 def explore(testItemId):
 	global shortestPaths, nodesOnNextLevel, nodesOnThisLevel, ifFoundAnswer, bestAnswer
 	testItemClaims = expandClaimsForLooping(wikidataGetClaims(testItemId))
@@ -108,10 +122,8 @@ def explore(testItemId):
 		newPath = shortestPaths[testItemId]+[(propertyId,itemId)]
 		if itemId in knownShortestPathsToTarget.keys():
 			print 'SUCCESS!'
-			knownShortestPathToTarget = knownShortestPathsToTarget[itemId]
-			knownShortestPathToTarget.reverse()
 			ifFoundAnswer = True
-			newAnswer = newPath+knownShortestPathToTarget
+			newAnswer = newPath+knownShortestPathsToTarget[itemId]
 			if len(bestAnswer)>len(newAnswer) or len(bestAnswer)==0:
 				print 'Updating best answer from', bestAnswer, 'to', newAnswer,'.'
 				bestAnswer = newAnswer
@@ -127,37 +139,66 @@ def explore(testItemId):
 			if lengthOfOldPath>lengthOfNewPath:
 				#then we gotta update it
 				shortestPaths[itemId] = newPath
-bestAnswer = []
-shortestPaths = {}
-nodesOnThisLevel = set()
-nodesOnNextLevel = set()
-ifFoundAnswer = False
 def findPath(ItemAId='Q7802'):#,ItemBId='Q336'):
-	global shortestPaths, nodesOnNextLevel, nodesOnThisLevel, ifFoundAnswer
+	global shortestPaths, nodesOnNextLevel, nodesOnThisLevel, ifFoundAnswer, bestAnswer
 	shortestPaths = {ItemAId:[('START',ItemAId)]}
 	nodesOnThisLevel = set()
 	nodesOnNextLevel = set()
 	nodesOnNextLevel.update([ItemAId])
+	bestAnswer = []
+	ifFoundAnswer = False
 	levelLimit = 10
-	while levelLimit>0 and len(nodesOnNextLevel)>0 and not ifFoundAnswer:
-		levelLimit -= 1
-		print '[DEBUG]Currently on level',levelLimit,'...'
-		nodesOnThisLevel = nodesOnNextLevel
-		nodesOnNextLevel = set()
-		pool = ThreadPool(50) # Sets the pool size
-		results = pool.map(explore, nodesOnThisLevel)
-		pool.close()	#close the pool 
-		pool.join()		#wait for the work to finish
-		#print 'shortestPaths:',shortestPaths
-	return [] #timed out :(
+	if knownShortestPathsToTarget.has_key(ItemAId):
+		print 'Already in cache:',knownShortestPathsToTarget[ItemAId]
+		bestAnswer = knownShortestPathsToTarget[ItemAId]
+		return knownShortestPathsToTarget[ItemAId]
+	else:
+		while levelLimit>0 and len(nodesOnNextLevel)>0 and not ifFoundAnswer:
+			levelLimit -= 1
+			print '[DEBUG]Currently on level',levelLimit,'...'
+			nodesOnThisLevel = nodesOnNextLevel
+			nodesOnNextLevel = set()
+			pool = ThreadPool(200) # Sets the pool size
+			results = pool.map(explore, nodesOnThisLevel)
+			pool.close()	#close the pool 
+			pool.join()		#wait for the work to finish
+			#print 'shortestPaths:',shortestPaths
+		return [] #timed out :(
 def DEBUGdumpTheBSide():
-	global shortestPaths
-	shortestPaths = {}
-	f = open('dump.txt','w+').write(json.dumps(findPath('Q133957'), sort_keys=True)).close()
+	global knownShortestPathsToTarget
+	knownShortestPathsToTarget = {}
+	findPath('Q133957')
+	f = open('dump.txt','w+')
+	f.write(json.dumps(shortestPaths, sort_keys=True))
+	f.close()
 if __name__=='__main__':
-	##findPath()
-	##print naturallyDescribeWithClaims(bestAnswer)
-	DEBUGdumpTheBSide()
+	#findPath('Q7802')
+	#print naturallyDescribeWithClaims(bestAnswer)
+	from flask import Flask, session, render_template, request, jsonify, redirect, url_for, send_from_directory
+	app = Flask(__name__)
+	# Sessions variables are stored client side, on the users browser. The content of the variables is encrypted, so users can't
+	# actually see it. They could edit it, but again, as the content wouldn't be signed with this hash key, it wouldn't be valid
+	# You need to set a secret key (random text) and keep it secret.
+	app.secret_key = 'iu4hntvw8h7ft'
+	#@app.route('/')
+	#def index():
+	#	return render_template('index.html')
+	@app.route('/run')
+	def run():
+		userInput = request.args.get('query', '')
+		print 'userInput:',userInput
+		userInputAsId = wikidataSearch(userInput)
+		if userInputAsId=='': #no such thing!
+			return jsonify(resultInIds=[], resultInLabels=[], naturalDescription='No such thing.')
+		else:
+			print 'userInputAsId:',userInputAsId
+			findPath(userInputAsId)
+			if bestAnswer==[]:
+				return jsonify(resultInIds=[], resultInLabels=[], naturalDescription='No relationship found.')
+			else:
+				return jsonify(resultInIds=bestAnswer, resultInLabels=convertClaimsFromIdsToLabels(bestAnswer), naturalDescription=naturallyDescribeWithClaims(bestAnswer))
+	app.run(host="0.0.0.0",port=int("1336"),debug=True,threaded=True)
+	##DEBUGdumpTheBSide()
 	#Set up the language checker:
 	#languageTool = language_check.LanguageTool('en-CA')
 	#Fix the language:
