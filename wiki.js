@@ -16,7 +16,7 @@ function getWiki(ob, f){
 		if (err){console.log(err); return;}
 		var bd = JSON.parse(body);
 		// printJSON(bd);
-		if (!$.ohas(bd, "query")){f(null); return;}
+		if (!$.ohas(bd, "query") || ($.ohas(bd.query.pages, "-1") && $.ohas(bd.query.pages["-1"], "missing"))){f(null); return;}
 		f(bd);
 	});
 }
