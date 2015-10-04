@@ -16,8 +16,6 @@ app.get('/', function (request, response) {
 });
 
 app.get('/search/:term', function (request, response) {
-  console.log(101);
-  console.log(request.params.term);
   request.params.term = encodeURIComponent(request.params.term.trim());
   var options = {
     host: 'illuminaughty-background.herokuapp.com',
@@ -33,6 +31,7 @@ app.get('/search/:term', function (request, response) {
       // I could work with the result html/json here.  I could also just return it
       console.log("onResult: (" + statusCode + ")" + JSON.stringify(result));
       response.statusCode = statusCode;
+      console.log(result);
       response.send([{ name: result }]);
     });
 });
