@@ -1,0 +1,19 @@
+{
+  "name": "illuminaughty",
+  "version": "0.0.1",
+  "description": "The Illuminaughty",
+  "author": "The Illuminaughty",
+  "contributors": [],
+  "scripts": {
+    "run": "node wiki.js"
+  },
+  "main": "wiki.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vbardalez/Illuminaughty"
+  },
+  "dependencies": {
+    "request": "^2.64.0"
+  },
+  "private": true
+}
