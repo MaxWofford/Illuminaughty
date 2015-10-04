@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 import requests
-import language_check
-import pprint
+#import language_check
+#import pprint
 searchDepthThreshold = 10
 def wikidataSearch(name):
 	result = requests.get('https://www.wikidata.org/w/api.php',params={
@@ -16,6 +16,7 @@ def wikidataSearch(name):
 	return result
 claimsCache = {}
 def wikidataGetClaims(entityId):
+	print 'Retriving claims for',entityId
 	if claimsCache.has_key(entityId):
 		return claimsCache[entityId]
 	else:
@@ -29,8 +30,13 @@ def wikidataGetClaims(entityId):
 			for va in v:
 				mainSnak = va['mainsnak']
 				if mainSnak['datatype']=='wikibase-item':
-					itemId = 'Q'+str(mainSnak['datavalue']['value']['numeric-id'])
-					itemIds.append(itemId)
+					try:
+						itemId = 'Q'+str(mainSnak['datavalue']['value']['numeric-id'])
+					except KeyError:
+						#print '[WARNING]No datavalue presented in',mainSnak
+						continue
+					else:
+						itemIds.append(itemId)
 			if itemIds!=[]:
 				claims[propertyId]=itemIds
 		claimsCache[entityId] = claims
@@ -52,69 +58,86 @@ def wikidataGetEntityLabel(entityId):
 			return label
 		except:
 			return entityId
-def naturallyDescribeWithClaims(claims):
+def naturallyDescribeWithClaims(claimsInList):
 	result = ''
-	for propertyId,itemIds in claims.items():
+	for propertyId,itemId in claimsInList:
 		result = result + wikidataGetEntityLabel(propertyId)+' '+\
-			' and '.join([wikidataGetEntityLabel(itemId) for itemId in itemIds])+'. '
+						wikidataGetEntityLabel(itemId)+'. '
 	return result
 def expandClaimsForLooping(claimsInDict):
 	claimsInList = []
 	for propertyId,itemIds in claimsInDict.items():
 		for itemId in itemIds:
 			claimsInList.append((propertyId,itemId))
-depthFromA = 0
-depthFromB = 0
-currentPathFromA = []
-currentPathFromB = []
-nodesToCheckFromA = []
-nodesWithKnownShortestPaths = {}
-def stepForwardFromA():
-	possibleSolution = []
-	for nodeId in nodesToCheckFromA:
-		if nodeId in nodesWithKnownShortestPaths.viewkeys():
-			knownPathToThisNode = nodesWithKnownShortestPaths[nodeId]
-			if knownPathToThisNode[0][1]==ItemAId:
-				#This path is found starting from this side.
-				currentPathFromA = 
-				if len(currentPathFromA)<len(knownPathToThisNode):
-					nodesWithKnownShortestPaths[nodeId] = currentPathFromA
-			else:
-				#This shortest path is found from the other side!! Yeahhh!
-				knownPathToThisNode.reverse()
-				newSolution = currentPathFromA+knownPathToThisNode
-				if len(possibleSolution)==0 or len(possibleSolution)>newSolution:
-					possibleSolution = newSolution
-	if possibleSolution==[]:
-		return False
-	else:
-		print possibleSolution
-		return True
-def findPath(ItemAId='Q7802',ItemBId='Q336'):
-	global currentPathFromA, currentPathFromB
-	currentPathFromA = [('start',ItemAId)]
-	currentPathFromB = [('start',ItemBId)]
-	while depthFromA+depthFromB<searchDepthThreshold:
-		ifSucceed = stepForwardFromA()
-		if ifSucceed:
-			break
-		ifSucceed = stepForwardFromB()
-		if ifSucceed:
-			break
+	return claimsInList
+# depthFromA = 0
+# depthFromB = 0
+# currentPathFromA = []
+# currentPathFromB = []
+# nodesToCheckFromA = []
+# nodesWithKnownShortestPaths = {}
+# def stepForwardFromA():
+# 	possibleSolution = []
+# 	for nodeId in nodesToCheckFromA:
+# 		if nodeId in nodesWithKnownShortestPaths.viewkeys():
+# 			knownPathToThisNode = nodesWithKnownShortestPaths[nodeId]
+# 			if knownPathToThisNode[0][1]==ItemAId:
+# 				#This path is found starting from this side.
+# 				currentPathFromA = 1
+# 				if len(currentPathFromA)<len(knownPathToThisNode):
+# 					nodesWithKnownShortestPaths[nodeId] = currentPathFromA
+# 			else:
+# 				#This shortest path is found from the other side!! Yeahhh!
+# 				knownPathToThisNode.reverse()
+# 				newSolution = currentPathFromA+knownPathToThisNode
+# 				if len(possibleSolution)==0 or len(possibleSolution)>newSolution:
+# 					possibleSolution = newSolution
+# 	if possibleSolution==[]:
+# 		return False
+# 	else:
+# 		print possibleSolution
+# 		return True
+knownShortestPathsToTarget = {'Q336':[('END','Q336')]}
+def findPath(ItemAId='Q7802'):#,ItemBId='Q336'):
+	shortestPaths = {ItemAId:[('START',ItemAId)]}
+	nodesOnThisLevel = set()
+	nodesOnNextLevel = set()
+	nodesOnNextLevel.update([ItemAId])
+	levelLimit = 10
+	while levelLimit>0 and len(nodesOnNextLevel)>0:
+		levelLimit -= 1
+		print '[DEBUG]Currently on level',levelLimit,'...'
+		nodesOnThisLevel = nodesOnNextLevel
+		nodesOnNextLevel = set()
+		for testItemId in nodesOnThisLevel:
+			testItemClaims = expandClaimsForLooping(wikidataGetClaims(testItemId))
+			#print testItemClaims
+			for propertyId,itemId in testItemClaims:
+				nodesOnNextLevel.update([itemId])
+				newPath = shortestPaths[testItemId]+[(propertyId,itemId)]
+				if itemId in knownShortestPathsToTarget.keys():
+					print 'SUCCESS!'
+					knownShortestPathToTarget = knownShortestPathsToTarget[itemId]
+					knownShortestPathToTarget.reverse()
+					return newPath+knownShortestPathToTarget
+					#this may NOT be the shortest, since not all nodes in this depth are checked.
+				else: #sadly, we have to go on:
+					if shortestPaths.has_key(itemId):
+						lengthOfOldPath = len(shortestPaths[itemId])
+					else:
+						lengthOfOldPath = 99999
+					lengthOfNewPath = len(newPath)
+					#print 'lengthOfNewPath:',lengthOfNewPath
+					if lengthOfOldPath>lengthOfNewPath:
+						#then we gotta update it
+						shortestPaths[itemId] = newPath
+		#print 'shortestPaths:',shortestPaths
+	return [] #timed out :(
 if __name__=='__main__':
 	#Set up the language checker:
-	languageTool = language_check.LanguageTool('en-CA')
-	#Test:
-	testInputs = ['bread', 'food', 'good', 'service', 'economics', 'social science', 'science']
-	targetId = 'Q336' #"science"
-	for testInput in testInputs:
-		print 'Testing query "'+testInput+'"...'
-		testItemId = wikidataSearch(testInput)[0]['id']
-		testItemClaims = wikidataGetClaims(testItemId)
-		#print testItemClaims
-		testItemLabel = wikidataGetEntityLabel(testItemId)
-		naturalDescription = testItemLabel+' is '+naturallyDescribeWithClaims(testItemClaims)
-		#Fix the language:
-		languageCheckerMatches = languageTool.check(naturalDescription)
-		naturalDescription = language_check.correct(naturalDescription, languageCheckerMatches)
-		print naturalDescription
+	#languageTool = language_check.LanguageTool('en-CA')
+	naturalDescription = naturallyDescribeWithClaims(findPath())
+	#Fix the language:
+	#languageCheckerMatches = languageTool.check(naturalDescription)
+	#naturalDescription = language_check.correct(naturalDescription, languageCheckerMatches)
+	print naturalDescription
