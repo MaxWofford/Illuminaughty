@@ -117,6 +117,7 @@ function cnt(x, a){
 function transObj(a, f){
 	var arr = [];
 	var ids = a.resultInIds;
+	if (ids.length == 0)f(null);
 	var labels = a.resultInLabels;
 	var links = a.wikiLinks;
 	for (var i = 0; i < labels.length; i++){
@@ -143,8 +144,7 @@ function transObj(a, f){
 	// console.log(newlabels);
 	for (var i = 0; i < newlabels.length; i++){
 		arr[i] = {};
-		if ($.ohas(newlabels[i], 1))arr[i].title = newlabels[i][1];
-		else arr[i].title = null;
+		arr[i].title = newlabels[i][1];
 		if ($.ohas(newlabels[i], 2))arr[i].desc = newlabels[i][2];
 		else arr[i].desc = "START";
 	}
