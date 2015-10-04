@@ -14,7 +14,8 @@ app.controller('IlluminatifyController', ["$scope", "$document", "$compile", "$t
             IlluminatifyDataService.getData(searchText)
                 .then(function (result) {
                     $scope.status = "Results";
-                    $scope.illuminaughtyArray = result[0].name;
+                    $scope.array = [1,2,3,4];
+                    $scope.illuminaughtyArray = result[0].name.resultInLabels;
                     console.log($scope.illuminaughtyArray);
                 }, function () {
                     console.log("Error");
