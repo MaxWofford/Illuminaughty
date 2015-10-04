@@ -98,6 +98,66 @@ function reload(a){
 	return require(a);
 }
 
+function getObj(title, f){
+	request({url: "http://illuminaughty-background.herokuapp.com", qs: {q: title}}, function (err, resp, body){
+		if (err){console.log("here"); console.log(err); return;}
+		f(JSON.parse(body));
+	});
+}	
+
+function transObj(a, f){
+	var arr = [];
+	var ids = a.resultInIds;
+	var labels = a.resultInLabels;
+	var links = a.wikiLinks;
+	for (var i = 0; i < labels.length; i++){
+		labels[i][1] = links[ids[i][1]];
+	}
+	// console.log(labels);
+	
+	var newlabels = [labels[0]];
+	var newlabels2 = []; // the reversed second half
+	for (var i = 1; i < labels.length; i++){
+		if (labels[i][0] == "START"){
+			for (i = i+1; i < labels.length; i++){
+				labels[i-1][2] = labels[i-1][1] + " " + labels[i][0] + " " + labels[i][1];
+				newlabels2.push(labels[i-1]);
+			}
+			break;
+		}
+		labels[i][2] = labels[i-1][1] + " " + labels[i][0] + " " + labels[i][1];
+		newlabels.push(labels[i]);
+	}
+	newlabels = $.app(newlabels, $.rev(newlabels2));
+	// console.log(newlabels);
+	for (var i = 0; i < newlabels.length; i++){
+		arr[i] = {};
+		arr[i].title = newlabels[i][1];
+		if ($.ohas(newlabels[i], 2))arr[i].desc = newlabels[i][2];
+		else arr[i].desc = "START";
+	}
+	// console.log(arr);
+	len = arr.length;
+	for (var i = 0; i < arr.length; i++){
+		getFirstImage(arr[i].title, mkFunc(arr, i, f));
+	}
+}
+
+var num = 0; var len = 0;
+function mkFunc(arr, i, f){
+	return function (a){
+		num++;
+		// console.log("num: " + num);
+		// console.log("len: " + len);
+		arr[i].image = a;
+		checkDone(f, arr);
+	};
+}
+		
+function checkDone(f, arr){
+	if (num == len)f(arr);
+}
+
 module.exports = {
 	getWiki: getWiki,
 	printJSON: printJSON,
@@ -108,5 +168,7 @@ module.exports = {
 	getSomeHTML: getSomeHTML,
 	getFirstImage: getFirstImage,
 	getImage: getImage,
-	reload: reload
+	reload: reload,
+	getObj: getObj,
+	transObj: transObj
 };
