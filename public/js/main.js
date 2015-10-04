@@ -15,7 +15,8 @@ app.controller('IlluminatifyController', ["$scope", "$document", "$compile", "$t
                     $scope.status = "Results";
                     $scope.illuminaughtyArray = result.data;
                 }, function () {
-                    console.log("Error");
+                    $scope.searchText = '';
+                    $scope.status = "Search";   
                 })
             }
         }
