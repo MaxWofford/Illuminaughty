@@ -8,66 +8,89 @@
 </head>
 
 <body>
-	<div id="music">
-		<embed src="../public/dankmeme.mp3" autostart="true" hidden="true" loop="true" />
-	</div>
-	<center>
-		<!--Note: Add more Memes and gifs-->
-		<div id="middle">
-			<div id="gif">
-				<img src="../public/Gifs/Snoop.gif">
-			</div>
-			<!--Dank Logo-->
-			<img src="../public/Images/Logo.jpg">
-            
-            <div id="cod"> 
-                <img src="../public/Gifs/quickscope.gif">
-            
-            </div>
+	<div class="Search" ng-show="status == 'Search'">
+		<div id="music">
+			<embed src="../public/dankmeme.mp3" autostart="true" hidden="true" loop="true" />
 		</div>
-		<div id="search-bar">
-			<form name="Illuminaughtify" ng-submit="search()">
-				<input id="search" type="text" name="search" ng-model="searchText"></input>
-            <div id="buttons">
-				<input type="submit" name="search" value="Illuminati Search"></input>
-				<button type="submit" name="feelingIlluminaughty" ng-click="feelingIlluminaughty()">Feeling Illuminaughty</button>
-            </div>
-			</form>
-    
-	</center>
-	<div id="Illuminati">
-		<img src="../public/Images/Illuminati_Emblem.png">
-		<img src="../public/Images/Illuminati_Emblem.png">
-		<img src="../public/Images/Illuminati_Emblem.png">
-		<img src="../public/Images/Illuminati_Emblem.png">
-		<img src="../public/Images/Illuminati_Emblem.png">
-		<img src="../public/Images/Illuminati_Emblem.png">
-		<img src="../public/Images/Illuminati_Emblem.png">
-		<img src="../public/Images/Illuminati_Emblem.png">
-		<img src="../public/Images/Illuminati_Emblem.png">
-        <img src="../public/Images/Illuminati_Emblem.png">
-		<img src="../public/Images/Illuminati_Emblem.png">
-		<img src="../public/Images/Illuminati_Emblem.png">
-        <img src="../public/Images/Illuminati_Emblem.png">
-		<img src="../public/Images/Illuminati_Emblem.png">
-		<img src="../public/Images/Illuminati_Emblem.png">
-       
-    
+
+	
+		<center>
+			<!--Note: Add more Memes and gifs-->
+			<div id="middle">
+				<div id="gif">
+					<img src="../public/Gifs/Snoop.gif">
+				</div>
+				<!--Dank Logo-->
+				<img src="../public/Images/Logo.jpg">
+
+
+				<div id="cod">
+					<img src="../public/Gifs/quickscope.gif">
+
+				</div>
+			</div>
+			<div id="search-bar">
+				<form name="Illuminaughtify" ng-submit="search()">
+					<input id="search" type="text" name="search" ng-model="searchText"></input>
+					<div id="buttons">
+						<input type="submit" name="search" value="Illuminati Search"></input>
+                    <button type="submit" name="feelingIlluminaughty" ng-click="feelingIlluminaughty()">Feeling Illuminaughty</button>
+					</div>
+				</form>
+			</div>
+		</center>
+		<div id="Illuminati">
+			<img src="../public/Images/Illuminati_Emblem.png">
+			<img src="../public/Images/Illuminati_Emblem.png">
+			<img src="../public/Images/Illuminati_Emblem.png">
+			<img src="../public/Images/Illuminati_Emblem.png">
+			<img src="../public/Images/Illuminati_Emblem.png">
+			<img src="../public/Images/Illuminati_Emblem.png">
+			<img src="../public/Images/Illuminati_Emblem.png">
+			<img src="../public/Images/Illuminati_Emblem.png">
+			<img src="../public/Images/Illuminati_Emblem.png">
+			<img src="../public/Images/Illuminati_Emblem.png">
+			<img src="../public/Images/Illuminati_Emblem.png">
+			<img src="../public/Images/Illuminati_Emblem.png">
+			<img src="../public/Images/Illuminati_Emblem.png">
+			<img src="../public/Images/Illuminati_Emblem.png">
+			<img src="../public/Images/Illuminati_Emblem.png">
+		</div>
+		<div id="dank">
+			<img src="../public/Gifs/Mlg%20Frog.gif">
+			<img src="../public/Gifs/Mlg%20Frog.gif">
+			<img src="../public/Gifs/Mlg%20Frog.gif">
+			<img src="../public/Gifs/Mlg%20Frog.gif">
+			<img src="../public/Gifs/Mlg%20Frog.gif">
+			<img src="../public/Gifs/Mlg%20Frog.gif">
+			<img src="../public/Gifs/Mlg%20Frog.gif">
+			<img src="../public/Gifs/Mlg%20Frog.gif">
+
+		</div>
 	</div>
-
-
-    <div id="dank"> 
-        <img src="../public/Gifs/Mlg%20Frog.gif"> 
-        <img src="../public/Gifs/Mlg%20Frog.gif"> 
-        <img src="../public/Gifs/Mlg%20Frog.gif"> 
-        <img src="../public/Gifs/Mlg%20Frog.gif">
-        <img src="../public/Gifs/Mlg%20Frog.gif">
-        <img src="../public/Gifs/Mlg%20Frog.gif">
-        <img src="../public/Gifs/Mlg%20Frog.gif">
-        <img src="../public/Gifs/Mlg%20Frog.gif">
-
-    </div>
-
+	<div class="Loading" ng-show="status == 'Loading'">
+		<!--Loading status..--> 
+        <!--this is what will happen when the page is loading--> 
+        <div id="rarePepe">
+        <img src="../public/gifs/loading%20pepe.gif"> 
+        </div>
+	</div>
+	<div class="Result" ng-show="status == 'Result'">
+		<div class="illuminaugthyElement" ng-repeat="illuminaugthyElement in illuminaugthyArray">
+			<div class="illuminaugthyElementImageContainer">
+				<img src="{{illuminaugthyElement.img}}">
+			</div>
+			<div class="illuminaugthyElementTitleContainer">
+				<h2>{{illuminaugthyElement.title}}</h2>
+			</div>
+			<div class="illuminaugthyElementDescriptionContainer">
+				<h3>{{illuminaugthyElement.desc}}</h2>
+			</div>
+			<div class="illuminaugthyArrow">
+			</div>
+			<hr/>
+		</div>
+	</div>
 </body>
 <footer>
 	<p>Illuminati Confirmed. 420. Dank. NoScope.</p>
