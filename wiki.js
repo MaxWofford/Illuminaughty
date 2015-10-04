@@ -162,6 +162,7 @@ function mkGroup(arr){
 			// console.log("num: " + num);
 			// console.log("len: " + len);
 			arr[i].image = a;
+			if (arr[i].title == "Illuminati")arr[i].image = "http://usvsth3m.com/wp-content/uploads/2013/12/LFMlGEp8.jpeg";
 			checkDone(f, arr);
 		};
 	}
