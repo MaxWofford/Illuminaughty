@@ -20,7 +20,7 @@ app.controller('IlluminatifyController', ["$scope", "$document", "$compile", "$t
             }
         }
         $scope.feelingIlluminaughty = function () {
-            console.log(102);
+            console.log(101);
         }
         
         $scope.searchAgain = function() {
