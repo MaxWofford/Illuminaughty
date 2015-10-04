@@ -1,6 +1,7 @@
 var express = require('express');
 var http = require('http');
 var https = require('https');
+var wiki = require('./wiki');
 var app = express();
 
 app.set('port', (process.env.PORT || 5000));
@@ -31,7 +32,7 @@ app.get('/search/:term', function (request, response) {
       // I could work with the result html/json here.  I could also just return it
       console.log("onResult: (" + statusCode + ")" + JSON.stringify(result));
       response.statusCode = statusCode;
-      console.log(result);
+      wiki.printJSON(result);
       response.send([{ name: result }]);
     });
 });

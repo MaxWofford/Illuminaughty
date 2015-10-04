@@ -2,12 +2,17 @@ var app = angular.module('Illuminatify', []);
 
 app.controller('IlluminatifyController', ["$scope", "$document", "$compile", "$timeout", "IlluminatifyDataService",
     function ($scope, $document, $compile, $timeout, IlluminatifyDataService) {
+        $scope.status = "Search";
+        $scope.
+        
         $scope.search = function () {
             var searchText = $scope.searchText;
             searchText = encodeURIComponent(searchText.trim());
             console.log(searchText);
+            $scope.status = "Loading";
             IlluminatifyDataService.getData(searchText)
                 .then(function (result) {
+                    $scope.status = "Results";
                     console.log(result);
                 }, function () {
                     console.log("Error");
