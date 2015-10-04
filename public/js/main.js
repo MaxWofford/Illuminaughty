@@ -2,14 +2,23 @@ var app = angular.module('Illuminatify', []);
 
 app.controller('IlluminatifyController', ["$scope", "$document", "$compile", "$timeout", "IlluminatifyDataService",
     function ($scope, $document, $compile, $timeout, IlluminatifyDataService) {
-        console.log(101);
         IlluminatifyDataService.getData("Data")
             .then(function(result) {
                 console.log(result);
             }, function() {
                 console.log("Error");
             })
+            
+            $scope.search = function() {
+                console.log(101);
+                console.log($scope.searchText);
+            }
+            
+            $scope.feelingIlluminaughty = function() {
+                console.log(102);
+            }
     }]);
+    
 app.factory("IlluminatifyDataService", ["$http", "$q", function ($http, $q) {
 	var _data = [];			
 
