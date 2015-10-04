@@ -79,7 +79,7 @@
 	<div class="Result" ng-show="status == 'Results'">
 		<div class="illuminaugthyElement container" ng-repeat="illuminaugthyElement in illuminaughtyArray">
 			<div class="illuminaugthyElementImageContainer">
-				<img src="{{illuminaugthyElement.image}}"/>
+				<img ng-src="{{illuminaugthyElement.image}}" class="img-responsive"/>
 			</div>
 			<div class="illuminaugthyElementTitleContainer">
 				<h2>{{illuminaugthyElement.title}}</h2>
@@ -87,8 +87,8 @@
 			<div class="illuminaugthyElementDescriptionContainer">
 				<h3>{{illuminaugthyElement.desc}}</h2>
 			</div>
-			<div class="illuminaugthyArrow" ng-if="index != illuminaughtyArray.length">
-				<img src="../public/Images/arrow_down.png"}"/>
+			<div class="illuminaugthyArrow" ng-if="$index != illuminaughtyArray.length - 1">
+				<img src="../public/Images/arrow_down.png" class="img-responsive"/>
 			</div>
 			<hr/> 
 		</div>
