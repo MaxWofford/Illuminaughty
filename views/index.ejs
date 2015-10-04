@@ -5,7 +5,7 @@
 	<title>Illuminaughty</title>
 	<!--Linking style sheet-->
 	<link rel="stylesheet" href="../public/stylesheets/Illuminaughty.css">
-	<link rel="stylesheet"="../public/boostrap.min.css"/>
+	<link rel="stylesheet" href="../public/bootstrap.min.css">
 </head>
 
 <body>
@@ -14,7 +14,7 @@
 			<embed src="../public/dankmeme.mp3" autostart="true" hidden="true" loop="true" />
 		</div>
 
-	
+
 		<center>
 			<!--Note: Add more Memes and gifs-->
 			<div id="middle">
@@ -35,7 +35,7 @@
 					<input id="search" type="text" name="search" ng-model="searchText"></input>
 					<div id="buttons">
 						<input type="submit" name="search" value="Illuminati Search"></input>
-                    <button type="submit" name="feelingIlluminaughty" ng-click="feelingIlluminaughty()">Feeling Illuminaughty</button>
+						<button type="submit" name="feelingIlluminaughty" ng-click="feelingIlluminaughty()">Feeling Illuminaughty</button>
 					</div>
 				</form>
 			</div>
@@ -73,24 +73,28 @@
 		<!--Loading status..--> 
         <!--this is what will happen when the page is loading--> 
         <div id="rarePepe">
-         <!--<img src="../public/Gifs/loading%20pepe.gif">--> 
+         <img src="../public/Gifs/loading%20pepe.gif">  
         </div>
 	</div>
 	<div class="Result" ng-show="status == 'Results'">
 		<div class="illuminaugthyElement container" ng-repeat="illuminaugthyElement in illuminaughtyArray">
 			<div class="illuminaugthyElementImageContainer">
-				<img src="{{illuminaugthyElement.image}}"/>
+				<img ng-src="{{illuminaugthyElement.image}}" class="img-responsive" />
 			</div>
-			<div class="illuminaugthyElementTitleContainer">
+			<div class="illuminaugthyElementTitleContainer text-center">
 				<h2>{{illuminaugthyElement.title}}</h2>
 			</div>
-			<div class="illuminaugthyElementDescriptionContainer">
+			<div class="illuminaugthyElementDescriptionContainer text-center">
 				<h3>{{illuminaugthyElement.desc}}</h2>
 			</div>
-			<div class="illuminaugthyArrow" ng-if="index != illuminaughtyArray.length">
-				<img src="../public/Images/arrow_down.png"}"/>
+			<div class="illuminaugthyArrow" ng-if="$index != illuminaughtyArray.length - 1">
+				<img src="../public/Images/arrow_down.png" class="img-responsive"/>
 			</div>
+			<hr/>
 			<hr/> 
+		</div>
+		<div class="buttonContainer">
+		<button class="btn btn-lg btn-primary" ng-click="searchAgain()">Search Again</button>
 		</div>
 	</div>
 </body>

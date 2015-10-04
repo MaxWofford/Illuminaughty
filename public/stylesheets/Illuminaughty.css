@@ -161,9 +161,7 @@ footer p {
 } 
 
 #rarePepe { 
-    height: 100%;
-    width: 100%; 
-    background-image: url("../public/Gifs/loading%20pepe.gif"); 
+    
     position: fixed; 
     top: 50%;
     left: 50%; 
@@ -173,5 +171,26 @@ footer p {
 } 
 
 .illuminaugthyArrow {
-    height: 10vh;
+    height: 20vh;
+    position: relative;
+    display: block;
+}
+
+.illuminaugthyArrow img {
+    height: 100%;
+    position: relative;
+    display: block;
+}
+
+.illuminaugthyElementImageContainer img {
+    margin: auto;
+        max-width: 40vw;
+}
+
+.illuminaugthyArrow img {
+    margin: auto;
+}
+
+.buttonContainer {
+    text-align: center;
 }
