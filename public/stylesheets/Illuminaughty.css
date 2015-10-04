@@ -171,5 +171,25 @@ footer p {
 } 
 
 .illuminaugthyArrow {
-    height: 10vh;
+    height: 20vh;
+    position: relative;
+    display: block;
+}
+
+.illuminaugthyArrow img {
+    height: 100%;
+    position: relative;
+    display: block;
+}
+
+.illuminaugthyElementImageContainer img {
+    margin: auto;
+}
+
+.illuminaugthyArrow img {
+    margin: auto;
+}
+
+.buttonContainer {
+    text-align: center;
 }
