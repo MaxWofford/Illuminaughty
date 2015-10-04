@@ -186,6 +186,7 @@ footer p {
 
 .illuminaugthyElementImageContainer img {
     margin: auto;
+        max-width: 40vw;
 }
 
 .illuminaugthyArrow img {
