@@ -161,11 +161,14 @@ footer p {
 } 
 
 #rarePepe { 
+    height: 100%;
+    width: 100%; 
+    background-image: url("../public/Gifs/loading%20pepe.gif"); 
     position: fixed; 
     top: 50%;
     left: 50%; 
     margin-top: -50px;
-    margin-left: -100px; 
+    margin-left: -100px; */ 
     
 } 
 
