@@ -3,9 +3,9 @@ var app = angular.module('Illuminatify', []);
 app.controller('IlluminatifyController', ["$scope", "$document", "$compile", "$timeout", "IlluminatifyDataService",
     function ($scope, $document, $compile, $timeout, IlluminatifyDataService) {
         $scope.status = "Search";
-        $scope.
         
         $scope.search = function () {
+            console.log($scope.searchText);
             var searchText = $scope.searchText;
             searchText = encodeURIComponent(searchText.trim());
             console.log(searchText);

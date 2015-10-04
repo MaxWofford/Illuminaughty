@@ -8,7 +8,7 @@
 </head>
 
 <body>
-	<div class="Search" ng-if="status == 'Search'">
+	<div class="Search" ng-show="status == 'Search'">
 		<div id="music">
 			<embed src="../public/dankmeme.mp3" autostart="true" hidden="true" loop="true" />
 		</div>
@@ -68,10 +68,10 @@
 
 		</div>
 	</div>
-	<div class="Loading" ng-if="status == 'Loading'">
+	<div class="Loading" ng-show="status == 'Loading'">
 		
 	</div>
-	<div class="Result" ng-if="status == 'Result'">
+	<div class="Result" ng-show="status == 'Result'">
 		
 	</div>
 </body>
