@@ -76,7 +76,7 @@ def stepForwardFromA():
 			knownPathToThisNode = nodesWithKnownShortestPaths[nodeId]
 			if knownPathToThisNode[0][1]==ItemAId:
 				#This path is found starting from this side.
-				currentPathFromA = 
+				currentPathFromA = 1
 				if len(currentPathFromA)<len(knownPathToThisNode):
 					nodesWithKnownShortestPaths[nodeId] = currentPathFromA
 			else:
@@ -105,7 +105,7 @@ if __name__=='__main__':
 	#Set up the language checker:
 	languageTool = language_check.LanguageTool('en-CA')
 	#Test:
-	testInputs = ['bread', 'food', 'good', 'service', 'economics', 'social science', 'science']
+	testInputs = ['illuminati']
 	targetId = 'Q336' #"science"
 	for testInput in testInputs:
 		print 'Testing query "'+testInput+'"...'
