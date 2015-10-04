@@ -3,6 +3,7 @@ var app = angular.module('Illuminatify', []);
 app.controller('IlluminatifyController', ["$scope", "$document", "$compile", "$timeout", "IlluminatifyDataService",
     function ($scope, $document, $compile, $timeout, IlluminatifyDataService) {
         $scope.status = "Search";
+        $scope.illuminaughtyArray = [];
         
         $scope.search = function () {
             console.log($scope.searchText);
@@ -13,7 +14,8 @@ app.controller('IlluminatifyController', ["$scope", "$document", "$compile", "$t
             IlluminatifyDataService.getData(searchText)
                 .then(function (result) {
                     $scope.status = "Results";
-                    console.log(result);
+                    $scope.illuminaughtyArray = result[0].name;
+                    console.log($scope.illuminaughtyArray);
                 }, function () {
                     console.log("Error");
                 })
@@ -32,7 +34,7 @@ app.factory("IlluminatifyDataService", ["$http", "$q", function ($http, $q) {
         $http.get("/search/" + searchTerm)
             .then(function (result) {
                 //success
-                angular.copy(result.data, _data);
+                _data = result.data;
                 deferred.resolve(_data);
             }, function () {
                 // error
