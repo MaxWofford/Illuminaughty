@@ -79,7 +79,7 @@
 	<div class="Result" ng-show="status == 'Results'">
 		<div class="illuminaugthyElement container" ng-repeat="illuminaugthyElement in illuminaughtyArray">
 			<div class="illuminaugthyElementImageContainer">
-				
+				<img src="{{illuminaugthyElement.image}}"/>
 			</div>
 			<div class="illuminaugthyElementTitleContainer">
 				<h2>{{illuminaugthyElement.title}}</h2>
@@ -97,7 +97,8 @@
 <footer>
 	<p>Illuminati Confirmed. 420. Dank. NoScope.</p>
 </footer>
-<script src="../public/boostrap.min.js"></script>
+<script src="../public/jquery-1.11.3.min.js"></script>
+<script src="../public/bootstrap.min.js"></script>
 <script src="../public/js/angular.min.js"></script>
 <script src="../public/js/main.js"></script>
 
