@@ -120,7 +120,8 @@ function transObj(a, f){
 	var labels = a.resultInLabels;
 	var links = a.wikiLinks;
 	for (var i = 0; i < labels.length; i++){
-		labels[i][1] = links[ids[i][1]];
+		var l = links[ids[i][1]];
+		if (l !== undefined)labels[i][1] = links[ids[i][1]];
 	}
 	// console.log(labels);
 	
