@@ -180,3 +180,15 @@ footer p {
     position: relative;
     display: block;
 }
+
+.illuminaugthyElementImageContainer img {
+    margin: auto;
+}
+
+.illuminaugthyArrow img {
+    margin: auto;
+}
+
+.buttonContainer {
+    text-align: center;
+}
