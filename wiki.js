@@ -117,7 +117,10 @@ function cnt(x, a){
 function transObj(a, f){
 	var arr = [];
 	var ids = a.resultInIds;
-	if (ids.length == 0)f(null);
+	if (ids.length == 0){
+		f(null);
+		return;
+	}
 	var labels = a.resultInLabels;
 	var links = a.wikiLinks;
 	for (var i = 0; i < labels.length; i++){
