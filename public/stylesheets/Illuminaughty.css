@@ -90,7 +90,7 @@ body {
 	margin-top: 19px;
 	border: 1px solid rgba(1,1,1,1);
 	margin-bottom: 19px; 
-
+    z-index: 1000; 
 
 
 }
@@ -109,7 +109,7 @@ body {
     border: 1px solid rgba(0,0,0,0.1);
     display: inline-block;
     text-align: center;
-
+    z-index: 1000; 
 
 
 
