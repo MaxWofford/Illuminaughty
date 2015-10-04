@@ -143,7 +143,8 @@ function transObj(a, f){
 	// console.log(newlabels);
 	for (var i = 0; i < newlabels.length; i++){
 		arr[i] = {};
-		arr[i].title = newlabels[i][1];
+		if ($.ohas(newlabels[i], 1))arr[i].title = newlabels[i][1];
+		else arr[i].title = null;
 		if ($.ohas(newlabels[i], 2))arr[i].desc = newlabels[i][2];
 		else arr[i].desc = "START";
 	}
