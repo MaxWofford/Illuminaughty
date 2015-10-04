@@ -2,7 +2,8 @@
 //
 // $ node
 // > var w = require('./wiki');
-// > w.getLinks("Illuminati", w.parseJSON);
+// > w.getWiki({titles: "Illuminati", prop: "links", pllimit: "400", plnamespace: "0"}, w.printJSON);
+// > w.getLinks("Illuminati", console.log);
 // (do some editing in wiki.js)
 // > var w = w.reload('./wiki');
 
@@ -40,6 +41,18 @@ function getLinks(title, f){
 	});
 }
 
+function getNLinksHere(n, title, f){
+	getWiki({titles: title, prop: "linkshere", lhlimit: $.str(n), lhnamespace: "0"}, function (bd){
+		f($.map(valer("title"), $.oval(bd.query.pages)[0].linkshere));
+	});
+}
+
+function getContent(title, f){
+	getWiki({titles: title, prop: "revisions", rvprop: "content"}, function (bd){
+		f($.oval(bd.query.pages)[0].revisions[0]["*"]);
+	});
+}
+
 function printJSON(a){
 	return console.log(JSON.stringify(a, null, 2));
 }
@@ -55,5 +68,7 @@ module.exports = {
 	printJSON: printJSON,
 	getCategories: getCategories,
 	getLinks: getLinks,
+	getNLinksHere: getNLinksHere,
+	getContent: getContent,
 	reload: reload
 };
