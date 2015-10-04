@@ -11,19 +11,36 @@ body {
 
 }
 
+#middle { 
+    display: inline-block: 
+    
+    
+} 
+
 #logo { 
     padding-top: 200px; 
     text-align: center; 
-    float: center; 
-    
+    z-index: 10; 
 
 
 
 }
 
 #gif { 
+    margin-left: 0px;
+    height: 50px;
+    width: 40px; 
+    float: left; 
+    position: relative;
+    z-index: 1; 
     
-    float: left;
+} 
+
+#dank img{ 
+    height: 40px; 
+    width: 40px; 
+    align-content: center;
+    
     
 } 
 

@@ -1,70 +1,52 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
+<html ng-app="Illuminatify" ng-controller="IlluminatifyController">
 
+<head>
+	<title>Illuminaughty</title>
+	<!--Linking style sheet-->
+	<link rel="stylesheet" href="../public/stylesheets/Illuminaughty.css">
+</head>
 
-<html> 
-	<head> 
-		<title>Illuminaughty</title> 
-		
-		<!--Linking style sheet--> 
-		<link rel="stylesheet" href="Illuminaughty.css"> 
-		
-	</head> 
-	
-	<body> 
-	
-	<center> 
-        
-   <!-- <div id="gif"> 
-        <img src="Snoop.gif">-->
-        
-    </div>
-	<!--Dank Logo--> 
-	<img src="Logo.jpg">
-	
-	<div id="search-bar"> 
-	
-	<form> 
-		<input type="text" name="search"></input>
-	</form> 
-	
-	</div> 
-        
-    <!--<Div id="dope"> 
-    <img src="dope.gif">--> 
-        
-    </Div> 
-	
-	<form id="buttons"> 
-		<input type="submit" name="search" value="Illuminati Search"></input> 
-		<input type="submit" name="feelingIlluminaughty" value="Feeling Illuminaughty"></input> 
-		
-	</form> 
-	
-	</center> 
-    <div id="Illuminati"> 
-        <img src="Illuminati_Emblem.png"> 
-        <img src="Illuminati_Emblem.png"> 
-        <img src="Illuminati_Emblem.png"> 
-        <img src="Illuminati_Emblem.png"> 
-        <img src="Illuminati_Emblem.png"> 
-        <img src="Illuminati_Emblem.png"> 
-        <img src="Illuminati_Emblem.png"> 
-        <img src="Illuminati_Emblem.png"> 
-        <img src="Illuminati_Emblem.png"> 
-        
-
-
-    </div>
-	
-	</body> 
-
-<footer> 
-
-    <p>Illuminati Confirmed. 420. Dank. NoScope.</p>
-    
-
-
+<body>
+	<div id="music">
+		<embed src="../public/dankmeme.mp3" autostart="true" hidden="true" loop="true" />
+	</div>
+	<center>
+		<!--Note: Add more Memes and gifs-->
+		<div id="middle">
+			<div id="gif">
+				<img src="../public/Gifs/Snoop.gif">
+			</div>
+			<!--Dank Logo-->
+			<img src="../public/Images/Logo.jpg">
+		</div>
+		<div id="search-bar">
+			<form name="Illuminaughtify" ng-submit="search()">
+				<input type="text" name="search" ng-model="searchText"></input>
+				<input type="submit" name="search" value="Illuminati Search"></input>
+				<button type="submit" name="feelingIlluminaughty" ng-click="feelingIlluminaughty()">Feeling Illuminaughty</button>
+			</form>
+			</form>
+	</center>
+	<div id="Illuminati">
+		<img src="../public/Images/Illuminati_Emblem.png">
+		<img src="../public/Images/Illuminati_Emblem.png">
+		<img src="../public/Images/Illuminati_Emblem.png">
+		<img src="../public/Images/Illuminati_Emblem.png">
+		<img src="../public/Images/Illuminati_Emblem.png">
+		<img src="../public/Images/Illuminati_Emblem.png">
+		<img src="../public/Images/Illuminati_Emblem.png">
+		<img src="../public/Images/Illuminati_Emblem.png">
+		<img src="../public/Images/Illuminati_Emblem.png">
+	</div>
+	<div id="Dank">
+		<img src="../public/Gifs/Mlg%20Frog.gif">
+	</div>
+</body>
+<footer>
+	<p>Illuminati Confirmed. 420. Dank. NoScope.</p>
 </footer>
-<script src="../js_module/angular.min.js"/>
-<script src="../js_module/main.js"/>
-</html> 
+<script src="../public/js/angular.min.js"></script>
+<script src="../public/js/main.js"></script>
+
+</html>
