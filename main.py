@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-import requests
+import requests, json
+from multiprocessing.dummy import Pool as ThreadPool
 #import language_check
 #import pprint
 searchDepthThreshold = 10
@@ -16,7 +17,7 @@ def wikidataSearch(name):
 	return result
 claimsCache = {}
 def wikidataGetClaims(entityId):
-	print 'Retriving claims for',entityId
+	#print 'Retriving claims for',entityId
 	if claimsCache.has_key(entityId):
 		return claimsCache[entityId]
 	else:
@@ -98,46 +99,68 @@ def expandClaimsForLooping(claimsInDict):
 # 		print possibleSolution
 # 		return True
 knownShortestPathsToTarget = {'Q336':[('END','Q336')]}
+def explore(testItemId):
+	global shortestPaths, nodesOnNextLevel, nodesOnThisLevel, ifFoundAnswer, bestAnswer
+	testItemClaims = expandClaimsForLooping(wikidataGetClaims(testItemId))
+	#print testItemClaims
+	for propertyId,itemId in testItemClaims:
+		nodesOnNextLevel.update([itemId])
+		newPath = shortestPaths[testItemId]+[(propertyId,itemId)]
+		if itemId in knownShortestPathsToTarget.keys():
+			print 'SUCCESS!'
+			knownShortestPathToTarget = knownShortestPathsToTarget[itemId]
+			knownShortestPathToTarget.reverse()
+			ifFoundAnswer = True
+			newAnswer = newPath+knownShortestPathToTarget
+			if len(bestAnswer)>len(newAnswer) or len(bestAnswer)==0:
+				print 'Updating best answer from', bestAnswer, 'to', newAnswer,'.'
+				bestAnswer = newAnswer
+			return
+			#this may NOT be the shortest, since not all nodes in this depth are checked.
+		else: #sadly, we have to go on:
+			if shortestPaths.has_key(itemId):
+				lengthOfOldPath = len(shortestPaths[itemId])
+			else:
+				lengthOfOldPath = 99999
+			lengthOfNewPath = len(newPath)
+			#print 'lengthOfNewPath:',lengthOfNewPath
+			if lengthOfOldPath>lengthOfNewPath:
+				#then we gotta update it
+				shortestPaths[itemId] = newPath
+bestAnswer = []
+shortestPaths = {}
+nodesOnThisLevel = set()
+nodesOnNextLevel = set()
+ifFoundAnswer = False
 def findPath(ItemAId='Q7802'):#,ItemBId='Q336'):
+	global shortestPaths, nodesOnNextLevel, nodesOnThisLevel, ifFoundAnswer
 	shortestPaths = {ItemAId:[('START',ItemAId)]}
 	nodesOnThisLevel = set()
 	nodesOnNextLevel = set()
 	nodesOnNextLevel.update([ItemAId])
 	levelLimit = 10
-	while levelLimit>0 and len(nodesOnNextLevel)>0:
+	while levelLimit>0 and len(nodesOnNextLevel)>0 and not ifFoundAnswer:
 		levelLimit -= 1
 		print '[DEBUG]Currently on level',levelLimit,'...'
 		nodesOnThisLevel = nodesOnNextLevel
 		nodesOnNextLevel = set()
-		for testItemId in nodesOnThisLevel:
-			testItemClaims = expandClaimsForLooping(wikidataGetClaims(testItemId))
-			#print testItemClaims
-			for propertyId,itemId in testItemClaims:
-				nodesOnNextLevel.update([itemId])
-				newPath = shortestPaths[testItemId]+[(propertyId,itemId)]
-				if itemId in knownShortestPathsToTarget.keys():
-					print 'SUCCESS!'
-					knownShortestPathToTarget = knownShortestPathsToTarget[itemId]
-					knownShortestPathToTarget.reverse()
-					return newPath+knownShortestPathToTarget
-					#this may NOT be the shortest, since not all nodes in this depth are checked.
-				else: #sadly, we have to go on:
-					if shortestPaths.has_key(itemId):
-						lengthOfOldPath = len(shortestPaths[itemId])
-					else:
-						lengthOfOldPath = 99999
-					lengthOfNewPath = len(newPath)
-					#print 'lengthOfNewPath:',lengthOfNewPath
-					if lengthOfOldPath>lengthOfNewPath:
-						#then we gotta update it
-						shortestPaths[itemId] = newPath
+		pool = ThreadPool(50) # Sets the pool size
+		results = pool.map(explore, nodesOnThisLevel)
+		pool.close()	#close the pool 
+		pool.join()		#wait for the work to finish
 		#print 'shortestPaths:',shortestPaths
 	return [] #timed out :(
+def DEBUGdumpTheBSide():
+	global shortestPaths
+	shortestPaths = {}
+	f = open('dump.txt','w+').write(json.dumps(findPath('Q133957'), sort_keys=True)).close()
 if __name__=='__main__':
+	##findPath()
+	##print naturallyDescribeWithClaims(bestAnswer)
+	DEBUGdumpTheBSide()
 	#Set up the language checker:
 	#languageTool = language_check.LanguageTool('en-CA')
-	naturalDescription = naturallyDescribeWithClaims(findPath())
 	#Fix the language:
 	#languageCheckerMatches = languageTool.check(naturalDescription)
 	#naturalDescription = language_check.correct(naturalDescription, languageCheckerMatches)
-	print naturalDescription
+	#print naturalDescription
