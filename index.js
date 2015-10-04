@@ -16,6 +16,9 @@ app.get('/', function (request, response) {
 });
 
 app.get('/search/:term', function (request, response) {
+  console.log(101);
+  console.log(request.params.term);
+  request.params.term = encodeURIComponent(request.params.term.trim());
   var options = {
     host: 'illuminaughty-background.herokuapp.com',
     path: '/?q=' + request.params.term,

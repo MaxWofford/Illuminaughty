@@ -4,7 +4,8 @@ app.controller('IlluminatifyController', ["$scope", "$document", "$compile", "$t
     function ($scope, $document, $compile, $timeout, IlluminatifyDataService) {
         $scope.search = function () {
             var searchText = $scope.searchText;
-            searchText = searchText.replace(/ /g,'');
+            searchText = encodeURIComponent(searchText.trim());
+            console.log(searchText);
             IlluminatifyDataService.getData(searchText)
                 .then(function (result) {
                     console.log(result);
@@ -22,7 +23,7 @@ app.factory("IlluminatifyDataService", ["$http", "$q", function ($http, $q) {
 
     var _getData = function (searchTerm) {
         var deferred = $q.defer();
-        console.log(102);
+        console.log(searchTerm);
         $http.get("/search/" + searchTerm)
             .then(function (result) {
                 //success
