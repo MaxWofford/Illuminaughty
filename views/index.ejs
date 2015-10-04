@@ -5,6 +5,7 @@
 	<title>Illuminaughty</title>
 	<!--Linking style sheet-->
 	<link rel="stylesheet" href="../public/stylesheets/Illuminaughty.css">
+	<link rel="stylesheet"="../public/boostrap.min.css"/>
 </head>
 
 <body>
@@ -75,10 +76,10 @@
         <img src="../public/gifs/loading%20pepe.gif"> 
         </div>
 	</div>
-	<div class="Result" ng-show="status == 'Result'">
-		<div class="illuminaugthyElement" ng-repeat="illuminaugthyElement in illuminaugthyArray">
+	<div class="Result" ng-show="status == 'Results'">
+		<div class="illuminaugthyElement container" ng-repeat="illuminaugthyElement in illuminaughtyArray">
 			<div class="illuminaugthyElementImageContainer">
-				<img src="{{illuminaugthyElement.img}}">
+				<img src="{{illuminaugthyElement.image}}"/>
 			</div>
 			<div class="illuminaugthyElementTitleContainer">
 				<h2>{{illuminaugthyElement.title}}</h2>
@@ -87,15 +88,19 @@
 				<h3>{{illuminaugthyElement.desc}}</h2>
 			</div>
 			<div class="illuminaugthyArrow">
+				<img src="../public/Images/arrow_down.png"}"/>
 			</div>
-			<hr/>
+			<hr/> 
 		</div>
 	</div>
 </body>
 <footer>
 	<p>Illuminati Confirmed. 420. Dank. NoScope.</p>
 </footer>
+<script src="../public/jquery-1.11.3.min.js"></script>
+<script src="../public/bootstrap.min.js"></script>
 <script src="../public/js/angular.min.js"></script>
 <script src="../public/js/main.js"></script>
+
 
 </html>

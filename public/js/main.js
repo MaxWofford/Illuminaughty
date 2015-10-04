@@ -6,16 +6,13 @@ app.controller('IlluminatifyController', ["$scope", "$document", "$compile", "$t
         $scope.illuminaughtyArray = [];
         
         $scope.search = function () {
-            console.log($scope.searchText);
             var searchText = $scope.searchText;
             searchText = encodeURIComponent(searchText.trim());
-            console.log(searchText);
             $scope.status = "Loading";
             IlluminatifyDataService.getData(searchText)
                 .then(function (result) {
                     $scope.status = "Results";
-                    $scope.illuminaughtyArray = result[0].name;
-                    console.log($scope.illuminaughtyArray);
+                    $scope.illuminaughtyArray = result.data;
                 }, function () {
                     console.log("Error");
                 })
@@ -30,7 +27,6 @@ app.factory("IlluminatifyDataService", ["$http", "$q", function ($http, $q) {
 
     var _getData = function (searchTerm) {
         var deferred = $q.defer();
-        console.log(searchTerm);
         $http.get("/search/" + searchTerm)
             .then(function (result) {
                 //success
