@@ -14,6 +14,7 @@ app.controller('IlluminatifyController', ["$scope", "$document", "$compile", "$t
                 .then(function (result) {
                     $scope.status = "Results";
                     $scope.illuminaughtyArray = result.data;
+                    console.log($scope.illuminaughtyArray);
                 }, function () {
                     console.log("Error");
                 })
