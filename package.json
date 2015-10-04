@@ -1,27 +1,23 @@
 {
-  "name": "node-js-getting-started",
-  "version": "0.1.5",
-  "description": "A sample Node.js app using Express 4",
-  "main": "index.js",
+  "name": "illuminaughty",
+  "version": "0.0.1",
+  "description": "The Illuminaughty",
+  "author": "The Illuminaughty",
+  "contributors": [],
   "scripts": {
-    "start": "node index.js"
+    "start": "node wiki.js"
   },
-  "dependencies": {
-    "ejs": "2.3.3",
-    "express": "4.13.3",
-	"cool-ascii-faces": "~1.3.x"
-  },
-  "engines": {
-    "node": "0.12.7"
-  },
+  "main": "wiki.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/heroku/node-js-getting-started"
+    "url": "https://github.com/vbardalez/Illuminaughty"
   },
-  "keywords": [
-    "node",
-    "heroku",
-    "express"
-  ],
+  "dependencies": {
+    "request": "^2.64.0",
+    "ejs": "2.3.3",
+    "express": "4.13.3",
+	  "cool-ascii-faces": "~1.3.x"
+  },
+  "private": true,
   "license": "MIT"
 }
