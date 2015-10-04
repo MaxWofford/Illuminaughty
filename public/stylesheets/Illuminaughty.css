@@ -21,7 +21,7 @@ body {
     padding-top: 200px; 
     text-align: center; 
     z-index: 10; 
-
+    position: fixed; 
 
 
 }
@@ -39,14 +39,15 @@ body {
     float: right;
     z-index: 1; 
     margin-right: 0px; 
-    
+    position: relative; 
     
     
 } 
 #cod img { 
-    padding-right: 10px;
-    width: 400px; 
-    height: 500px; 
+    
+    width: 10%; 
+    height: 10%; 
+    float: right; 
     
 } 
 #dank { 
@@ -89,7 +90,7 @@ body {
 	margin-top: 19px;
 	border: 1px solid rgba(1,1,1,1);
 	margin-bottom: 19px; 
-
+    z-index: 1000; 
 
 
 }
@@ -108,7 +109,7 @@ body {
     border: 1px solid rgba(0,0,0,0.1);
     display: inline-block;
     text-align: center;
-
+    z-index: 1000; 
 
 
 

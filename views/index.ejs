@@ -12,6 +12,8 @@
 		<div id="music">
 			<embed src="../public/dankmeme.mp3" autostart="true" hidden="true" loop="true" />
 		</div>
+
+	
 		<center>
 			<!--Note: Add more Memes and gifs-->
 			<div id="middle">
@@ -20,6 +22,7 @@
 				</div>
 				<!--Dank Logo-->
 				<img src="../public/Images/Logo.jpg">
+
 
 				<div id="cod">
 					<img src="../public/Gifs/quickscope.gif">
@@ -31,7 +34,7 @@
 					<input id="search" type="text" name="search" ng-model="searchText"></input>
 					<div id="buttons">
 						<input type="submit" name="search" value="Illuminati Search"></input>
-						<button type="submit" name="feelingIlluminaughty" ng-click="feelingIlluminaughty()">Feeling Illuminaughty</button>
+                    <button type="submit" name="feelingIlluminaughty" ng-click="feelingIlluminaughty()">Feeling Illuminaughty</button>
 					</div>
 				</form>
 			</div>
@@ -66,6 +69,9 @@
 		</div>
 	</div>
 	<div class="Loading" ng-show="status == 'Loading'">
+		<!--Loading status..--> 
+        <!--this is what will happen when the page is loading--> 
+        <img src="../public/gifs/loading%20pepe.gif"> 
 
 	</div>
 	<div class="Result" ng-show="status == 'Result'">
@@ -79,7 +85,8 @@
 			<div class="illuminaugthyElementDescriptionContainer">
 				<h3>{{illuminaugthyElement.desc}}</h2>
 			</div>
-			<div class="illumaugh"
+			<div class="illuminaugthyArrow">
+			</div>
 			<hr/>
 		</div>
 	</div>
