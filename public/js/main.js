@@ -8,6 +8,7 @@ app.controller('IlluminatifyController', ["$scope", "$document", "$compile", "$t
         $scope.search = function () {
             var searchText = $scope.searchText;
             searchText = encodeURIComponent(searchText.trim());
+            if (searchText != '') {
             $scope.status = "Loading";
             IlluminatifyDataService.getData(searchText)
                 .then(function (result) {
@@ -16,6 +17,7 @@ app.controller('IlluminatifyController', ["$scope", "$document", "$compile", "$t
                 }, function () {
                     console.log("Error");
                 })
+            }
         }
         $scope.feelingIlluminaughty = function () {
             console.log(102);
