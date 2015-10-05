@@ -37,6 +37,8 @@ app.factory("IlluminatifyDataService", ["$http", "$q", function ($http, $q) {
         var deferred = $q.defer();
         $http.get("/search/" + searchTerm)
             .then(function (result) {
+                console.log("in factory: ")
+                console.log(result);
                 //success
                 _data = result.data;
                 deferred.resolve(_data);

@@ -115,6 +115,10 @@ function cnt(x, a){
 }
 
 function transObj(a, f){
+  if (a.naturalDescription == "Something went wrong."){
+    f("error");
+    return;
+  }
 	var arr = [];
 	var ids = a.resultInIds;
 	if (ids.length == 0){

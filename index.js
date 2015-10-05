@@ -33,6 +33,7 @@ app.get('/search/:term', function (request, response) {
       console.log("onResult: (" + statusCode + ")" + JSON.stringify(result));
       response.statusCode = statusCode;
       wiki.transObj(result, function (a) {
+        console.log("transObj: ");
         console.log(a);
         response.send({data: a});
       });
@@ -57,7 +58,14 @@ app.getJSON = function (options, onResult) {
     });
 
     res.on('end', function () {
-      var obj = JSON.parse(output);
+      var obj;
+      try {
+        obj = JSON.parse(output);
+      } catch (e){
+        obj = {"naturalDescription": "Something went wrong.",
+               "resultInIds": [],
+               "resultInLabels": []};
+      }
       onResult(res.statusCode, obj);
     });
   });
