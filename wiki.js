@@ -115,7 +115,7 @@ function cnt(x, a){
 }
 
 function transObj(a, f){
-  if (a.naturalDescription == "Something went wrong."){
+  if (!$.objp(a) || !$.ohas(a, "naturalDescription") || a.naturalDescription == "Something went wrong."){
     f("error");
     return;
   }

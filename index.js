@@ -62,9 +62,7 @@ app.getJSON = function (options, onResult) {
       try {
         obj = JSON.parse(output);
       } catch (e){
-        obj = {"naturalDescription": "Something went wrong.",
-               "resultInIds": [],
-               "resultInLabels": []};
+        obj = null;
       }
       onResult(res.statusCode, obj);
     });
