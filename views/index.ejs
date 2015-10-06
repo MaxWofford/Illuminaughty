@@ -9,53 +9,67 @@
 </head>
 
 <body ng-app="Illuminatify" ng-controller="IlluminatifyController">
-	<div class="Search" ng-show="status == 'Search'">
-		<div id="music">
-			<embed src="../public/dankmeme.mp3" autostart="true" hidden="true" loop="true" />
-			<audio loop autoplay>
-			<source src="../public/dankmeme.mp3" type="audio/mpeg">
-			Your browser does not support the audio element.
-			</audio>
-		</div>
-
-		<center>
-			<!--Note: Add more Memes and gifs-->
-			<div id="middle">
-				<div id="gif">
-					<img src="../public/Gifs/Snoop.gif">
-				</div>
-				<!--Dank Logo-->
-				<img src="../public/Images/Logo.jpg">
-				<div id="cod">
-					<img src="../public/Gifs/quickscope.gif">
-				</div>
+	<audio loop autoplay>
+		<source src="../public/dankmeme.mp3" type="audio/mpeg">
+		Your browser does not support the audio element.
+	</audio>
+	<div class="Search container-fluid" ng-show="status == 'Search'">
+		<div class="row">
+			<div class="col-xs-3">
+				<img src="../public/Gifs/Snoop.gif" class="img-responsive">
 			</div>
-			<div id="search-bar">
-				<form name="Illuminaughtify" ng-submit="search()">
-					<input id="search" type="text" name="search" ng-model="searchText"></input>
-					<div id="buttons">
-						<input type="submit" name="search" value="Illuminati Search"></input>
-						<button type="submit" name="feelingIlluminaughty" ng-click="feelingIlluminaughty()">Feeling Illuminaughty</button>
+			<div class="col-xs-6">
+				<!--Dank Logo-->
+				<img src="../public/Images/Logo.jpg" class="img-responsive">
+				<form name="Illuminaughtify" id="search-bar" ng-submit="search()">
+					<div class="form-group">
+						<input id="search" type="text" placeholder="Search..." ng-model="searchText"/>
 					</div>
+					<button class="btn" type="submit"">Illuminati Search</button>
+					<button class="btn" ng-click="feelingIlluminaughty()">Feeling Illuminaughty</button>
 				</form>
 			</div>
-		</center>
-		<div id="Illuminati">
-			<img src="../public/Images/Illuminati_Emblem.png">
-			<img src="../public/Images/Illuminati_Emblem.png">
-			<img src="../public/Images/Illuminati_Emblem.png">
-			<img src="../public/Images/Illuminati_Emblem.png">
-			<img src="../public/Images/Illuminati_Emblem.png">
-			<img src="../public/Images/Illuminati_Emblem.png">
-			<img src="../public/Images/Illuminati_Emblem.png">
-			<img src="../public/Images/Illuminati_Emblem.png">
-			<img src="../public/Images/Illuminati_Emblem.png">
-			<img src="../public/Images/Illuminati_Emblem.png">
-			<img src="../public/Images/Illuminati_Emblem.png">
-			<img src="../public/Images/Illuminati_Emblem.png">
-			<img src="../public/Images/Illuminati_Emblem.png">
-			<img src="../public/Images/Illuminati_Emblem.png">
-			<img src="../public/Images/Illuminati_Emblem.png">
+			<div class="col-xs-3">
+				<img src="../public/Gifs/quickscope.gif" class="img-responsive">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-1">
+				<img src="../public/Images/Illuminati_Emblem.png" class="img-responsive">
+			</div>
+			<div class="col-xs-1">
+				<img src="../public/Images/Illuminati_Emblem.png" class="img-responsive">
+			</div>
+			<div class="col-xs-1">
+				<img src="../public/Images/Illuminati_Emblem.png" class="img-responsive">
+			</div>
+			<div class="col-xs-1">
+				<img src="../public/Images/Illuminati_Emblem.png" class="img-responsive">
+			</div>
+			<div class="col-xs-1">
+				<img src="../public/Images/Illuminati_Emblem.png" class="img-responsive">
+			</div>
+			<div class="col-xs-1">
+				<img src="../public/Images/Illuminati_Emblem.png" class="img-responsive">
+			</div>
+			<div class="col-xs-1">
+				<img src="../public/Images/Illuminati_Emblem.png" class="img-responsive">
+			</div>
+			<div class="col-xs-1">
+				<img src="../public/Images/Illuminati_Emblem.png" class="img-responsive">
+			</div>
+			<div class="col-xs-1">
+				<img src="../public/Images/Illuminati_Emblem.png" class="img-responsive">
+			</div>
+			<div class="col-xs-1">
+				<img src="../public/Images/Illuminati_Emblem.png" class="img-responsive">
+			</div>
+			<div class="col-xs-1">
+				<img src="../public/Images/Illuminati_Emblem.png" class="img-responsive">
+			</div>
+			<div class="col-xs-1">
+				<img src="../public/Images/Illuminati_Emblem.png" class="img-responsive">
+			</div>
 		</div>
 		<div id="dank">
 			<img src="../public/Gifs/Mlg%20Frog.gif">
@@ -66,14 +80,14 @@
 			<img src="../public/Gifs/Mlg%20Frog.gif">
 			<img src="../public/Gifs/Mlg%20Frog.gif">
 			<img src="../public/Gifs/Mlg%20Frog.gif">
-
 		</div>
+		<p id="bottomBar">Illuminati Confirmed. 420. Dank. NoScope.</p>
 	</div>
-	<div class="Loading" ng-show="status == 'Loading'">
-		<!--Loading status..--> 
-        <!--this is what will happen when the page is loading--> 
-        <div id="rarePepe">
-       		<img src="../public/Gifs/loading%20pepe.gif">  
+	<div class="Loading container-fluid" ng-show="status == 'Loading'">
+        <div class="row">
+			<div class="col-xs-offset-3 col-xs-6">
+       			<img src="../public/Gifs/loading%20pepe.gif" class="img-responsive" id="rarePepe">
+			</div>
         </div>
 	</div>
 	<div class="Result" ng-show="status == 'Results'">
@@ -103,7 +117,6 @@
 		<button class="btn btn-lg btn-primary" ng-click="searchAgain()">Search Again</button>
 		</div>
 	</div>
-	<p id="bottomBar">Illuminati Confirmed. 420. Dank. NoScope.</p>
 </body>
 <script src="../public/jquery-1.11.3.min.js"></script>
 <script src="../public/bootstrap.min.js"></script>

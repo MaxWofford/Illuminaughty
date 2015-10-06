@@ -9,17 +9,18 @@ app.controller('IlluminatifyController', ["$scope", "$document", "$compile", "$t
             var searchText = $scope.searchText;
             searchText = encodeURIComponent(searchText.trim());
             if (searchText != '') {
-            $scope.status = "Loading";
-            IlluminatifyDataService.getData(searchText)
-                .then(function (result) {
-                    $scope.status = "Results";
-                    $scope.illuminaughtyArray = result.data;
-                    console.log($scope.illuminaughtyArray);
-                }, function () {
-                    console.log("Error");
-                })
+                $scope.status = "Loading";
+                IlluminatifyDataService.getData(searchText)
+                    .then(function (result) {
+                        $scope.status = "Results";
+                        $scope.illuminaughtyArray = result.data;
+                        console.log($scope.illuminaughtyArray);
+                    }, function () {
+                        console.log("Error");
+                    })
             }
         }
+        
         $scope.feelingIlluminaughty = function () {
             console.log(101);
         }
@@ -37,8 +38,6 @@ app.factory("IlluminatifyDataService", ["$http", "$q", function ($http, $q) {
         var deferred = $q.defer();
         $http.get("/search/" + searchTerm)
             .then(function (result) {
-                console.log("in factory: ")
-                console.log(result);
                 //success
                 _data = result.data;
                 deferred.resolve(_data);
