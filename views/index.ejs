@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="Illuminatify" ng-controller="IlluminatifyController">
+<html>
 
 <head>
 	<title>Illuminaughty</title>
@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="../public/bootstrap.min.css">
 </head>
 
-<body>
+<body ng-app="Illuminatify" ng-controller="IlluminatifyController">
 	<div class="Search" ng-show="status == 'Search'">
 		<div id="music">
 			<embed src="../public/dankmeme.mp3" autostart="true" hidden="true" loop="true" />
@@ -26,11 +26,8 @@
 				</div>
 				<!--Dank Logo-->
 				<img src="../public/Images/Logo.jpg">
-
-
 				<div id="cod">
 					<img src="../public/Gifs/quickscope.gif">
-
 				</div>
 			</div>
 			<div id="search-bar">
@@ -76,7 +73,7 @@
 		<!--Loading status..--> 
         <!--this is what will happen when the page is loading--> 
         <div id="rarePepe">
-         <img src="../public/Gifs/loading%20pepe.gif">  
+       		<img src="../public/Gifs/loading%20pepe.gif">  
         </div>
 	</div>
 	<div class="Result" ng-show="status == 'Results'">
@@ -106,10 +103,8 @@
 		<button class="btn btn-lg btn-primary" ng-click="searchAgain()">Search Again</button>
 		</div>
 	</div>
+	<p id="bottomBar">Illuminati Confirmed. 420. Dank. NoScope.</p>
 </body>
-<footer>
-	<p>Illuminati Confirmed. 420. Dank. NoScope.</p>
-</footer>
 <script src="../public/jquery-1.11.3.min.js"></script>
 <script src="../public/bootstrap.min.js"></script>
 <script src="../public/js/angular.min.js"></script>

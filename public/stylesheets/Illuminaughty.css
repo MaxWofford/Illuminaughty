@@ -1,20 +1,5 @@
-<!--stylesheet for Illuminaughty--> 
-html { 
-    
-    
-    
-} 
-body { 
-	
-
-
-
-}
-
 #middle { 
-    display: inline-block: 
-    
-    
+    display: inline-block:     
 } 
 
 #logo { 
@@ -22,8 +7,6 @@ body {
     text-align: center; 
     z-index: 10; 
     position: fixed; 
-
-
 }
 
 #gif { 
@@ -32,24 +15,22 @@ body {
     width: 40px; 
     float: left; 
     position: relative;
-    z-index: 1; 
-    
+    z-index: 1;   
 } 
+
 #cod { 
     float: right;
     z-index: 1; 
     margin-right: 0px; 
-    position: relative; 
-    
-    
+    position: relative;     
 } 
-#cod img { 
-    
+
+#cod img {     
     width: 10%; 
     height: 10%; 
-    float: right; 
-    
-} 
+    float: right;    
+}
+
 #dank { 
     width: 50%;
     height: 50%; 
@@ -57,32 +38,24 @@ body {
     text-align: center; 
     margin-left: auto;
     margin-right: auto;
-    float: center; 
-    
-    
+    float: center;     
 } 
 
 #dank img{ 
     width: 50px;
     position: relative; 
-    
 } 
 
 #dope { 
-    
     float: right; 
 }
+
 #logo img { 
     height: 95px;
     width: 269px;
-
-
-
 }
 
-
-#search-bar input { 
-    
+#search-bar input {     
     font-family: "Comic-Sans MS", cursive; 
     font-size: 16px; 
 	width: 569px;
@@ -91,11 +64,9 @@ body {
 	border: 1px solid rgba(1,1,1,1);
 	margin-bottom: 19px; 
     z-index: 1000; 
-
-
 }
-#buttons input{ 
-	
+
+#buttons input{ 	
     color: #444;;
     min-width: 54px;
     height: 30px;
@@ -110,9 +81,6 @@ body {
     display: inline-block;
     text-align: center;
     z-index: 1000; 
-
-
-
 }
 
 #buttons button { 
@@ -129,45 +97,37 @@ body {
     border: 1px solid rgba(0,0,0,0.1);
     display: inline-block;
     text-align: center;
-    
-    
-} 
+}
+ 
 #illuminati { 
     text-align: center; 
     float: center; 
     margin-left: 500px;
     padding-top: 100px;
     display: inline-block;
-    
 } 
+
 #Illuminati img { 
     height: 100px;
     width: 100px;
-    /*display: inline-block;*/ 
     margin-left: auto;
     margin-right: auto; 
     float: center;
     z-index: 10;
 } 
 
-footer p { 
-    
-    /*margin-top: 200px;*/
+#bottomBar { 
     text-align: center;
     font-family: "Comic Sans MS", cursive;
     font-size: 42px; 
-    
-    
 } 
 
 #rarePepe { 
-    
     position: fixed; 
     top: 50%;
     left: 50%; 
     margin-top: -50px;
     margin-left: -100px; */ 
-    
 } 
 
 .illuminaugthyArrow {
